@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Button, Card } from 'react-bootstrap'
 import React, {useState, useEffect }from 'react'
-import {getFilms} from './GhibliController'
+import { getFilms } from './GhibliController'
+import { FilmList } from './FilmList'
 
 function App() {
 
@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       {loaded?
-      <p>{JSON.stringify(films)}</p>:
+      <FilmList films= {films} />:
       <p>"This is loading"</p>}
     </>
   )

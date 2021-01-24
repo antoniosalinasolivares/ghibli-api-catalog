@@ -6,29 +6,23 @@ import { FilmList } from './FilmList'
 import { Splashscreen } from './Splashscreen'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import {UserContext} from './UserContext'
-import useLocalStorage from './useLocalStorage'
 
 
 const App = () => {
-  const [favs, setFavs] = useLocalStorage("films", [])
+
+  const [favs, setFavs] = useState([])
+
   return(
     <Router>
       <UserContext.Provider value={{favs, setFavs}}>
-        <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="#home">Ghibli Movie Catalog</Navbar.Brand>
-          <Nav className="mr-auto">
-            <Nav.Link href="https://ghibliapi.herokuapp.com/">Your Favourite Films</Nav.Link>
-            <Nav.Link href="https://ghibliapi.herokuapp.com/">Ghibli API</Nav.Link>
-            <Nav.Link href="https://www.omdbapi.com/">OMDb API</Nav.Link>
-            <Nav.Link href="https://github.com/antoniosalinasolivares/ghibli-api-catalog">Source</Nav.Link>
-          </Nav>
-        </Navbar>
+        <Navbar/>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/chat' component={Home} />
+          <Route path='/favs' component={Home} />
         </Switch>
       </UserContext.Provider>
     </Router>
+
   )
 }
 
@@ -51,6 +45,14 @@ export const Home = () => {
       <div>
         {loaded?
         <>
+            <Navbar bg="dark" variant="dark">
+              <Navbar.Brand href="#home">Ghibli Movie Catalog</Navbar.Brand>
+              <Nav className="mr-auto">
+                <Nav.Link href="https://ghibliapi.herokuapp.com/">Ghibli API</Nav.Link>
+                <Nav.Link href="https://www.omdbapi.com/">OMDb API</Nav.Link>
+                <Nav.Link href="https://github.com/antoniosalinasolivares/ghibli-api-catalog">Source</Nav.Link>
+              </Nav>
+            </Navbar>
             <div style={{
                 'padding':'10px 10px 10px 10px',
             }}>

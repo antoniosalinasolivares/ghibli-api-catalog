@@ -8,16 +8,22 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const [films, setFilms] = useState([])
 
+
   useEffect(()=>{
     getFilms(setFilms, setLoaded)
   }, [])
 
   return (
-    <>
-      {loaded?
-      <FilmList films= {films} />:
-      <p>"This is loading"</p>}
-    </>
+      <div style={{
+        'padding':'5px 20px',
+        'backgroundColor' :'#EBFFFF'
+        }}>
+        {loaded?
+        <>
+          <FilmList films= {films} />
+        </>:
+        <p>"This is loading"</p>}
+      </div>
   )
 }
 

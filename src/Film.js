@@ -1,12 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getPictureSrc } from './OMDbController'
-import { Card } from 'react-bootstrap'
+import { Card, Modal, Button } from 'react-bootstrap'
 import React, { useState, useEffect } from 'react'
 
 
 export const Film = (props) => {
 
-
+    const [showModal, setShowModal] = useState(false)
     const [imgSrc, setImgSrc] = useState('');
     useEffect(()=>{
         const a = async ()=> {
@@ -17,17 +17,54 @@ export const Film = (props) => {
     },[])
 
     return (
-        
-            <Card key={props.id}>
-                <Card.Img src={imgSrc}/>
-                <Card.Body>
-                    <Card.Title>
-                        {props.title}
-                    </Card.Title>
-                    <Card.Text>
-                        {props.description}
-                    </Card.Text>
-                </Card.Body>
-            </Card>
+            <div className="col-md-4" styles={{
+                'margin':'10px 0px 10px 0px'
+            }}>
+                <Card key={props.id} >
+                    <Card.Img src={imgSrc} />
+                    <Card.Body>
+                        <Card.Title>
+                            {props.title}
+                        </Card.Title>
+                        <Button variant="primary" onClick={() => setShowModal(true)}>
+                            Show description
+                        </Button>
+                        <VerticallyCenteredModal
+                            film={{
+                                title:props.title,
+                                description:props.description
+                            }}
+                            show={showModal}
+                            onHide={() => setShowModal(false)}
+                        />
+                    </Card.Body>
+                </Card>
+            </div>
     )
+}
+
+
+function VerticallyCenteredModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {props.film.title}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>
+        {props.film.description}
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+  );
 }

@@ -1,7 +1,7 @@
-export function Splashscreen() {
-    return (
-        <div styles={}>
-
-        </div>
+export const Splashscreen = () => {
+    return (    
+        <h1>
+            Studio Ghibli API
+        </h1>
     )
 }

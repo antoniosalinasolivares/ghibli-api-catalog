@@ -1,8 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Navbar, Nav } from 'react-bootstrap'
 import React, {useState, useEffect }from 'react'
 import { getFilms } from './GhibliController'
 import { FilmList } from './FilmList'
-
+import { Splashscreen } from './Splashscreen'
 function App() {
 
   const [loaded, setLoaded] = useState(false);
@@ -10,19 +11,33 @@ function App() {
 
 
   useEffect(()=>{
-    getFilms(setFilms, setLoaded)
+    setTimeout(()=>{
+      getFilms(setFilms, setLoaded)
+
+    }, 3000)
   }, [])
 
   return (
-      <div style={{
-        'padding':'5px 20px',
-        'backgroundColor' :'#EBFFFF'
-        }}>
+    
+      <div>
         {loaded?
         <>
-          <FilmList films= {films} />
+            <Navbar bg="dark" variant="dark">
+              <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+              <Nav className="mr-auto">
+                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="#features">Features</Nav.Link>
+                <Nav.Link href="#pricing">Pricing</Nav.Link>
+              </Nav>
+            </Navbar>
+            <div style={{
+                'padding':'10px 10px 10px 10px',
+            }}>
+              <FilmList style={{
+              }} films= {films} />
+            </div>     
         </>:
-        <p>"This is loading"</p>}
+        <Splashscreen/>}
       </div>
   )
 }

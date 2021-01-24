@@ -23,11 +23,11 @@ function App() {
         {loaded?
         <>
             <Navbar bg="dark" variant="dark">
-              <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+              <Navbar.Brand href="#home">Ghibli Movie Catalog</Navbar.Brand>
               <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#features">Features</Nav.Link>
-                <Nav.Link href="#pricing">Pricing</Nav.Link>
+                <Nav.Link href="https://ghibliapi.herokuapp.com/">Ghibli API</Nav.Link>
+                <Nav.Link href="https://www.omdbapi.com/">OMDb API</Nav.Link>
+                <Nav.Link href="https://github.com/antoniosalinasolivares/ghibli-api-catalog">Source</Nav.Link>
               </Nav>
             </Navbar>
             <div style={{

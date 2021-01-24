@@ -1,9 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getPictureSrc } from './OMDbController'
 import { Card, Modal, Button } from 'react-bootstrap'
-import React, { useState, useEffect } from 'react'
-
-
+import React, { useState, useEffect, useContext } from 'react'
+import {UserContext} from './UserContext'
 export const Film = (props) => {
 
     const [showModal, setShowModal] = useState(false)
@@ -32,7 +31,8 @@ export const Film = (props) => {
                         <VerticallyCenteredModal
                             film={{
                                 title:props.title,
-                                description:props.description
+                                description:props.description,
+                                id:props.id
                             }}
                             show={showModal}
                             onHide={() => setShowModal(false)}
@@ -45,6 +45,7 @@ export const Film = (props) => {
 
 
 function VerticallyCenteredModal(props) {
+  const {favs, setFavs} = useContext(UserContext)
   return (
     <Modal
       {...props}
@@ -59,10 +60,15 @@ function VerticallyCenteredModal(props) {
       </Modal.Header>
       <Modal.Body>
         <p>
-        {props.film.description}
+          {props.film.description }
         </p>
       </Modal.Body>
       <Modal.Footer>
+        <Button onClick={()=>{
+          setFavs((currentFavs)=>{
+            return [...currentFavs, props.film]
+          })
+        }}>Add to favourites</Button>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>

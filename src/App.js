@@ -1,24 +1,36 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Navbar, Nav } from 'react-bootstrap'
-import React, {useState, useEffect }from 'react'
+import { Navbar, Nav, Button } from 'react-bootstrap'
+import React, {useState, useEffect, useContext }from 'react'
 import { getFilms } from './GhibliController'
 import { FilmList } from './FilmList'
 import { Splashscreen } from './Splashscreen'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import {UserContext} from './UserContext'
-
+import {Link} from 'react-router-dom'
+import useLocalStorage from './useLocalStorage'
 
 const App = () => {
 
-  const [favs, setFavs] = useState([])
-
+  const [favs, setFavs] = useLocalStorage('films', [])
   return(
     <Router>
       <UserContext.Provider value={{favs, setFavs}}>
-        <Navbar/>
+        <Navbar bg="dark" variant="dark">
+          <Navbar.Brand>
+            <Link to={'/'}> Ghibli Studio Catalog </Link>
+          </Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link>
+              <Link to={'/favs'}> Favs </Link>
+            </Nav.Link>
+            <Nav.Link href="https://ghibliapi.herokuapp.com/">Ghibli API</Nav.Link>
+            <Nav.Link href="https://www.omdbapi.com/">OMDb API</Nav.Link>
+            <Nav.Link href="https://github.com/antoniosalinasolivares/ghibli-api-catalog">Source</Nav.Link>
+          </Nav>
+        </Navbar>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/favs' component={Home} />
+          <Route path='/favs' component={Favs} />
         </Switch>
       </UserContext.Provider>
     </Router>
@@ -27,17 +39,20 @@ const App = () => {
 }
 
 
-export const Home = () => {
+const Home = () => {
 
   const [loaded, setLoaded] = useState(false);
+  const [beenhere, setBeenhere] = useState(false)
   const [films, setFilms] = useState([])
 
 
   useEffect(()=>{
-    setTimeout(()=>{
-      getFilms(setFilms, setLoaded)
-
-    }, 3000)
+    if(!beenhere){
+      setTimeout(()=>{
+        getFilms(setFilms, setLoaded)
+        setBeenhere(true)
+      }, 2000)
+    }
   }, [])
 
   return (
@@ -45,14 +60,6 @@ export const Home = () => {
       <div>
         {loaded?
         <>
-            <Navbar bg="dark" variant="dark">
-              <Navbar.Brand href="#home">Ghibli Movie Catalog</Navbar.Brand>
-              <Nav className="mr-auto">
-                <Nav.Link href="https://ghibliapi.herokuapp.com/">Ghibli API</Nav.Link>
-                <Nav.Link href="https://www.omdbapi.com/">OMDb API</Nav.Link>
-                <Nav.Link href="https://github.com/antoniosalinasolivares/ghibli-api-catalog">Source</Nav.Link>
-              </Nav>
-            </Navbar>
             <div style={{
                 'padding':'10px 10px 10px 10px',
             }}>
@@ -65,6 +72,18 @@ export const Home = () => {
   )
 }
 
-
+const Favs = () => {
+  const {favs, setFavs} = useContext(UserContext)
+  return(
+        <>
+            <div style={{
+                'padding':'10px 10px 10px 10px',
+            }}>
+              <FilmList style={{
+              }} films= {favs} />
+            </div>     
+        </>
+        )
+}
 
 export default App

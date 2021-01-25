@@ -158,8 +158,19 @@ const Custom = () => {
                   <Card style={{ width: '18rem' }} >
                     <Card.Body>
                       <Card.Title>{element.name}</Card.Title>
+                        {
+                          element.climate?<>climate:{element.climate}</>:<></>
+                        }
+                        {
+                          element.description?<>{element.description}</>:<></>
+                        }
+                        {
+                          element.age?<>age: {element.age}</>:<></>
+                        }
+                        {
+                          element.classification?<>{element.classification}</>:<></>
+                        }
                       <Card.Text>
-                        This is just information
                       </Card.Text>
                     </Card.Body>
                   </Card>

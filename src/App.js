@@ -1,6 +1,6 @@
 // Bootstrap dependencies
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Navbar, Nav, Form, option, Button} from 'react-bootstrap'
+import { Navbar, Nav, Form, option, Button, Card} from 'react-bootstrap'
 
 // router dependencies
 import {Link} from 'react-router-dom'
@@ -108,7 +108,7 @@ const Custom = () => {
   const formRef = useRef()
 
   useEffect(() => {
-    setCollection((current)=> {
+    setCollection(async (current)=> {
       if(!getSearch(query, setCollection)){
         setCollection('Fallo el API')
       }
@@ -118,6 +118,7 @@ const Custom = () => {
 
   useEffect(() => {
     formRef.current.value = query
+    getSearch(query, setCollection)
   }, [])
 
   const search = () => {
@@ -145,7 +146,33 @@ const Custom = () => {
             console.log(formRef.current.value)
           }}>Search</Button>
 
-          {JSON.stringify(Collection)}
+          {
+            Collection?.length?
+            <div className="row">
+            {
+              Collection.map((element)=>{
+                return(
+                <div className="col-md-4" style={{ 
+                  'margin':'10px 0px 10px 0px'
+                }}>
+                  <Card style={{ width: '18rem' }} >
+                    <Card.Body>
+                      <Card.Title>{element.name}</Card.Title>
+                      <Card.Text>
+                        This is just information
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>  
+
+                )
+            })
+            }
+            </div>
+            :
+            <></>
+          }
+          
 
       </div>
     </>

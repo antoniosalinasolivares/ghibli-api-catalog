@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.js": "/ghibli-api-catalog/static/js/main.0bec96c6.chunk.js",
+    "main.js.map": "/ghibli-api-catalog/static/js/main.0bec96c6.chunk.js.map",
+    "runtime-main.js": "/ghibli-api-catalog/static/js/runtime-main.061cfab1.js",
+    "runtime-main.js.map": "/ghibli-api-catalog/static/js/runtime-main.061cfab1.js.map",
+    "static/css/2.150d169a.chunk.css": "/ghibli-api-catalog/static/css/2.150d169a.chunk.css",
+    "static/js/2.e29bc6fb.chunk.js": "/ghibli-api-catalog/static/js/2.e29bc6fb.chunk.js",
+    "static/js/2.e29bc6fb.chunk.js.map": "/ghibli-api-catalog/static/js/2.e29bc6fb.chunk.js.map",
+    "index.html": "/ghibli-api-catalog/index.html",
+    "static/css/2.150d169a.chunk.css.map": "/ghibli-api-catalog/static/css/2.150d169a.chunk.css.map",
+    "static/js/2.e29bc6fb.chunk.js.LICENSE.txt": "/ghibli-api-catalog/static/js/2.e29bc6fb.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.061cfab1.js",
+    "static/css/2.150d169a.chunk.css",
+    "static/js/2.e29bc6fb.chunk.js",
+    "static/js/main.0bec96c6.chunk.js"
+  ]
+}

@@ -1,6 +1,6 @@
 // Bootstrap dependencies
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Navbar, Nav, Form, option} from 'react-bootstrap'
+import { Navbar, Nav, Form, option, Button} from 'react-bootstrap'
 
 // router dependencies
 import {Link} from 'react-router-dom'
@@ -12,7 +12,7 @@ import {UserContext} from './UserContext'
 import useLocalStorage from './useLocalStorage'
 
 // API query abstraction
-import { getFilms, getPeople, getLocations, getSpecies, getVehicles } from './GhibliController'
+import { getFilms, getSearch } from './GhibliController'
 
 // subcomponents
 import { FilmList } from './FilmList'
@@ -26,14 +26,14 @@ const App = () => {
       <UserContext.Provider value={{favs, setFavs}}>
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand>
-            <Link to={'/'}> Ghibli Studio Catalog </Link>
+            <Link to={'/'}>Catalog</Link>
           </Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link>
-              <Link to={'/favs'}> Favs </Link>
+              <Link to={'/favs'}>Favs</Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to={'/custom'}> Search </Link>
+              <Link to={'/custom'}>Search</Link>
             </Nav.Link>
             <Nav.Link href="https://ghibliapi.herokuapp.com/">Ghibli API</Nav.Link>
             <Nav.Link href="https://www.omdbapi.com/">OMDb API</Nav.Link>
@@ -104,9 +104,25 @@ const Favs = () => {
 const Custom = () => {
 
   const [Collection, setCollection] = useState([])
-  const [query, setQuery] = useLocalStorage('query', 'people')
+  const [query, setQuery] = useLocalStorage('query', 'People')
+  const formRef = useRef()
 
+  useEffect(() => {
+    setCollection((current)=> {
+      if(!getSearch(query, setCollection)){
+        setCollection('Fallo el API')
+      }
+      console.log(Collection)
+    })
+  }, [query])
 
+  useEffect(() => {
+    formRef.current.value = query
+  }, [])
+
+  const search = () => {
+    setQuery(formRef.current.value)
+  }
 
   return(
     <>
@@ -115,8 +131,8 @@ const Custom = () => {
             }}>
         <Form>
           <Form.Group controlId="exampleForm.ControlSelect1">
-            <Form.Label>Example select</Form.Label>
-              <Form.Control as="select">
+            <Form.Label>Select your search</Form.Label>
+              <Form.Control ref={formRef} as="select">
                 <option>People</option>
                 <option>Locations</option>
                 <option>Species</option>
@@ -124,6 +140,13 @@ const Custom = () => {
               </Form.Control>
             </Form.Group>
           </Form>
+          <Button onClick={()=>{
+            setQuery(formRef.current.value)
+            console.log(formRef.current.value)
+          }}>Search</Button>
+
+          {JSON.stringify(Collection)}
+
       </div>
     </>
   )

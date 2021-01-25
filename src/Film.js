@@ -16,7 +16,7 @@ export const Film = (props) => {
     },[])
 
     return (
-            <div className="col-md-4" styles={{
+            <div className="col-md-3" styles={{
                 'margin':'10px 0px 10px 0px'
             }}>
                 <Card key={props.id} >

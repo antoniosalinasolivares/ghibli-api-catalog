@@ -10,3 +10,5 @@ What is missing:
 - Fix a bug that allows adding same films as favourite multiple times
 
 You can see it live [here](https://ghibli-api-catalog.herokuapp.com)
+
+I want to put this in GH pages, but react router requires some setup to work in here.

@@ -4,7 +4,7 @@ import { Navbar, Nav, Form, option, Button, Card} from 'react-bootstrap'
 
 // router dependencies
 import {Link} from 'react-router-dom'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import {HashRouter as Router, Switch, Route} from 'react-router-dom'
 
 // react dependencies
 import React, {useState, useEffect, useContext, useRef }from 'react'
